@@ -1,33 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
+import { useRoutes } from 'react-router-dom'
+import ShowCreators from './pages/ShowCreators'
+import ViewCreator from './pages/ViewCreator'
+import EditCreator from './pages/EditCreator'
+import AddCreator from './pages/AddCreator'
 import './App.css'
+import { supabase } from './client'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [creators, setCreators] = useState([])
+
+  useEffect(() => {
+    async function fetchCreators() {
+      const { data, error } = await supabase.from("creators").select("*")
+      if (error) {
+        console.error("Error fetching creators: ", error)
+      } else {
+        setCreators(data)
+      }
+    }
+    fetchCreators()
+  }, [])
+
+  let routes = useRoutes([
+    { path: '/', element: <ShowCreators creators={creators}/>},
+    { path: '/creators/:name', element: <ViewCreator />},
+    { path: '/creators/:name/edit', element: <EditCreator />},
+    { path: '/new', element: <AddCreator />}
+  ])
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className='App'>
+        {routes}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }

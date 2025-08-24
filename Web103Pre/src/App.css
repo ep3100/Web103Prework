@@ -1,42 +1,125 @@
+/* App.css */
 #root {
-  max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centers children horizontally */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+
+.creators-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* flexible columns */
+  gap: 2rem;
+  justify-content: center;   /* centers the whole grid */
+  justify-items: center;     /* centers items inside their grid column */
+  margin-top: 2rem;
+  max-width: 1000px;         /* keeps it tidy and centered */
+  margin-left: auto;         /* <-- centers container */
+  margin-right: auto;        /* <-- centers container */
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+/* Individual creator card */
+.creator-card {
+  background: #2e2e2e;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  text-align: center; /* center contents inside card */
+  width: 280px; /* fixed width so all cards are consistent */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  word-break: break-all;
+  overflow-wrap: break-word;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.creator-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
 }
 
-.card {
-  padding: 2em;
+.creator-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
 }
 
-.read-the-docs {
-  color: #888;
+.creator-card h2 {
+  font-size: 1.3rem;
+  margin: 0.5rem 0;
+}
+
+.creator-card p {
+  color: #ccc;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Center the link too */
+.creator-card a {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #61dafb;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* Buttons for cards/forms */
+.creator-card button,
+.form-container button {
+  margin-top: 0.8rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #646cff;
+  color: white;
+}
+
+.creator-card button:hover,
+.form-container button:hover {
+  background: #535bf2;
+}
+
+/* Form styling for Add/Edit creator */
+.form-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #2e2e2e;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  text-align: center;
+}
+
+.form-container h1 {
+  margin-bottom: 1rem;
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 1rem;
+  text-align: left; /* keep labels aligned left */
+}
+
+.form-container input,
+.form-container textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #1a1a1a;
+  color: white;
+  font-size: 0.95rem;
+}
+
+.form-container input:focus,
+.form-container textarea:focus {
+  outline: 2px solid #646cff;
+  border-color: #646cff;
 }
